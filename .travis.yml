@@ -1,0 +1,11 @@
+services:
+- docker
+script:
+- docker build -t wtanaka/ubuntu-1604-py2 .
+- docker run wtanaka/ubuntu-1604-py2 python -V
+after_success:
+- >
+  curl -H "Content-Type: application/json"
+  --data '{"source_type": "Branch", "source_name": "master"}'
+  -X POST
+  https://registry.hub.docker.com/u/wtanaka/ubuntu-1604-py2/trigger/4b72bf32-955d-4624-bc2d-ac0320020771/
